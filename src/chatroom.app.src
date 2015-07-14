@@ -2,7 +2,7 @@
 	{description, "a chatroom"},
 	{vsn, "0.1.0"},
 	{modules, []},
-	{registered, []},
+	{registered, [room]},
 	{applications, [
 		kernel,
 		stdlib,

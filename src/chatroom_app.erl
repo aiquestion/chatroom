@@ -5,12 +5,21 @@
 -export([stop/1]).
 
 start(_Type, _Args) ->
+  % init store
+  ws_store:init(),
   Dispatch = cowboy_router:compile([
-    {'_', [{"/", http_handler, []}]}
+    {'_', [
+      % http handler
+      {"/", http_handler, []},
+      % websocket handler
+      {"/websocket", ws_handler, []}
+    ]}
   ]),
+
   cowboy:start_http(my_http_listener, 100, [{port, 8081}],
     [{env, [{dispatch, Dispatch}]}]
   ),
+
   chatroom_sup:start_link().
 
 stop(_State) ->
