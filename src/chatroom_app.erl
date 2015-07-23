@@ -10,9 +10,12 @@ start(_Type, _Args) ->
   Dispatch = cowboy_router:compile([
     {'_', [
       % http handler
-      {"/", http_handler, []},
+      {"/http", http_handler, []},
       % websocket handler
-      {"/websocket", ws_handler, []}
+      {"/websocket", ws_handler, []},
+      %static files
+      {"/res/[...]", cowboy_static, {priv_dir, chatroom, "", [{mimetypes, cow_mimetypes, all}]}}
+
     ]}
   ]),
 
